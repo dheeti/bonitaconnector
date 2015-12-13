@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ConnectorDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<_package>com.lh.connectors.twistle</_package>
+	<id>twistleConnector</id>
+	<version>1.0.0</version>
+	<label>twistleConnector connector</label>
+	<description>twistleConnector 1.0.0</description>
+	<icon>connector-icon.png</icon>
+	<category>
+		<id>MyCategory</id>
+		<icon>category-icon.png</icon>
+	</category>
+
+	<!-- Configure the version of your Bonita Engine -->
+	<bonitaVersion>6.5.1</bonitaVersion>
+
+	<!-- connector Wizard pages configuration -->
+<pages>
+		<page>
+			<id>twistleconnector</id>
+			<title>Twistle</title>
+			<description>TwistleParameters</description>
+
+			<!-- an ordered set of one or more widget tags contained inside a page -->
+			<widgets>
+				<widget>
+					<id>systemId</id>
+					<label>System Id</label>
+					<!-- widget types: [Text, Password, TextArea, Checkbox, RadioGroup, 
+						Select, Array, ScriptEditor, List, Group] -->
+					<widgetType>Text</widgetType>
+					<javaType>java.lang.String</javaType>
+					<mandatory>true</mandatory>
+					<defaultValue></defaultValue>
+					<description>Login Id of Sender</description>
+				</widget>
+				<widget>
+					<id>password</id>
+					<label>Password</label>
+					<!-- widget types: [Text, Password, TextArea, Checkbox, RadioGroup, 
+						Select, Array, ScriptEditor, List, Group] -->
+					<widgetType>Text</widgetType>
+					<javaType>java.lang.String</javaType>
+					<mandatory>true</mandatory>
+					<defaultValue></defaultValue>
+					<description>Password of Sender</description>
+				</widget>
+				<widget>
+					<id>messageId</id>
+					<label>Message Id</label>
+					<!-- widget types: [Text, Password, TextArea, Checkbox, RadioGroup, 
+						Select, Array, ScriptEditor, List, Group] -->
+					<widgetType>Text</widgetType>
+					<javaType>java.lang.String</javaType>
+					<mandatory>true</mandatory>
+					<defaultValue></defaultValue>
+					<description>Message Id</description>
+				</widget>
+				<widget>
+					<id>recipientId</id>
+					<label>Recipient Id</label>
+					<!-- widget types: [Text, Password, TextArea, Checkbox, RadioGroup, 
+						Select, Array, ScriptEditor, List, Group] -->
+					<widgetType>Text</widgetType>
+					<javaType>java.lang.String</javaType>
+					<mandatory>true</mandatory>
+					<defaultValue></defaultValue>
+					<description>Recipient Id</description>
+				</widget>	
+				<widget>
+					<id>content</id>
+					<label>Message Content</label>
+					<!-- widget types: [Text, Password, TextArea, Checkbox, RadioGroup, 
+						Select, Array, ScriptEditor, List, Group] -->
+					<widgetType>Text</widgetType>
+					<javaType>java.lang.String</javaType>
+					<mandatory>true</mandatory>
+					<defaultValue></defaultValue>
+					<description>Message Content</description>
+				</widget>														
+			</widgets>
+		</page>
+	</pages>
+
+	<!-- the 'outputs' configuration tag is optional and responsible for defining -->
+	<!-- connector outputs -->
+	<outputs>
+		<output>
+			<id>result</id>
+			<javaType>java.lang.String</javaType>
+		</output>
+	</outputs>
+
+</ConnectorDefinition>
