@@ -1,0 +1,184 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.lh.connectors.unify</groupId>
+		<artifactId>unifyNotification</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<groupId>com.lh.connectors.unify</groupId>
+	<artifactId>unifyNotificationImpl</artifactId>
+	<version>1.0.0</version>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.ext</groupId>
+            <artifactId>jersey-mvc-freemarker</artifactId>
+            <version>2.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>saxon</artifactId>
+            <version>8.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>2.7.1</version>
+		</dependency>
+		<!-- Add the dependencies needed for you Connector Implementation here -->
+		<!-- Important: define them the 'optional' property set to 'false' -->
+		<!-- <dependency> -->
+		<!-- <groupId></groupId> -->
+		<!-- <artifactId></artifactId> -->
+		<!-- <version></version> -->
+		<!-- <optional>false</optional> -->
+		<!-- </dependency> -->
+		<!-- END connector dependencies -->
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.bonitasoft.connector.implementation</groupId>
+					<artifactId>bonita-connector-implementation-maven-plugin</artifactId>
+					<version>1.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<!-- Definition plug-in configuration -->
+			<plugin>
+				<groupId>com.bonitasoft.connector.definition</groupId>
+				<artifactId>bonita-connector-definition-maven-plugin</artifactId>
+				<configuration>
+					<xmlDefinitionFile>../src/main/resources/connector_definition.xml</xmlDefinitionFile>
+				</configuration>				
+			</plugin>
+
+			<!-- Implementation plug-in configuration -->
+			<plugin>
+				<groupId>com.bonitasoft.connector.implementation</groupId>
+				<artifactId>bonita-connector-implementation-maven-plugin</artifactId>
+				<configuration>
+					<xmlDefinitionFile>../src/main/resources/connector_definition.xml</xmlDefinitionFile>
+					<connectorImplementation
+						implementation="com.bonitasoft.connector.implementation.config.ConnectorImplementation">
+						<_package>${project.groupId}</_package>
+						<implementationId>${project.artifactId}</implementationId>
+						<implementationVersion>${project.version}</implementationVersion>
+						<definitionId>${project.parent.artifactId}</definitionId>
+						<definitionVersion>${project.parent.version}</definitionVersion>
+						<description>${project.artifactId} ${project.version} implementation</description>
+						<!-- Use "_class" element to specify a concrete implementation class. 
+							If _class is not set then it will combine groupId and artifactId as the name 
+							of the class -->
+						<!-- <_class>com.company.Class</_class> -->
+					</connectorImplementation>
+				</configuration>
+			</plugin>
+
+			<!-- Build jar Artifact -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+						<!-- exclude Maven pom.xml and pom.properties from produced artifact -->
+						<addMavenDescriptor>false</addMavenDescriptor>
+					</archive>
+				</configuration>
+			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+			<!-- connector Implementation ZIP assembler -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.5.3</version>
+				<executions>
+					<execution>
+						<id>generate-connector-implementation-zip</id>
+						<phase>package</phase>
+						<goals>
+							<goal>assembly</goal>
+						</goals>
+						<configuration>
+							<filters>
+								<filter>src/assembly/filter.properties</filter>
+							</filters>
+							<descriptors>
+								<descriptor>src/assembly/connectorImplementationAssembler.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

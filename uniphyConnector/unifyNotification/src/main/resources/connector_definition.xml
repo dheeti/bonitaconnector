@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ConnectorDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<_package>com.lh.connectors.unify</_package>
+	<id>unifyNotification</id>
+	<version>1.0.0</version>
+	<label>Unify Notification connector</label>
+	<description>unifyNotification 1.0.0</description>
+	<icon>connector-icon.png</icon>
+	<category>
+		<id>LearninghHealth</id>
+		<icon>category-icon.png</icon>
+	</category>
+
+	<!-- Configure the version of your Bonita Engine -->
+	<bonitaVersion>7.0.0</bonitaVersion>
+
+	<!-- connector Wizard pages configuration -->
+	<pages>
+		<page>
+			<id>unifyNotification</id>
+			<title>Unify Notification</title>
+			<description>Connector to Send Notifications through Unify</description>
+
+			<!-- an ordered set of one or more widget tags contained inside a page -->
+			<widgets>
+				<widget>
+					<id>subject</id>
+					<label>Subject</label>
+					<!-- widget types: [Text, Password, TextArea, Checkbox, RadioGroup, 
+						Select, Array, ScriptEditor, List, Group] -->
+					<widgetType>Text</widgetType>
+					<javaType>java.lang.String</javaType>
+					<mandatory>true</mandatory>
+					<defaultValue>Notification</defaultValue>
+					<description>SubjectLine of Notification</description>
+				</widget>
+				<widget>
+					<id>participant</id>
+					<label>Participant</label>
+					<!-- widget types: [Text, Password, TextArea, Checkbox, RadioGroup, 
+						Select, Array, ScriptEditor, List, Group] -->
+					<widgetType>Text</widgetType>
+					<javaType>java.lang.String</javaType>
+					<mandatory>true</mandatory>
+					<defaultValue>56981416e4b0fa694eee5aff</defaultValue>
+					<description>Participant GUID</description>
+				</widget>	
+				<widget>
+					<id>content</id>
+					<label>Message Body</label>
+					<!-- widget types: [Text, Password, TextArea, Checkbox, RadioGroup, 
+						Select, Array, ScriptEditor, List, Group] -->
+					<widgetType>TextArea</widgetType>
+					<javaType>java.lang.String</javaType>
+					<mandatory>true</mandatory>
+					<defaultValue>Blank Message</defaultValue>
+					<description>Message Body</description>
+				</widget>		
+				<widget>
+					<id>urgent</id>
+					<label>Urgent Message?</label>
+					<!-- widget types: [Text, Password, TextArea, Checkbox, RadioGroup, 
+						Select, Array, ScriptEditor, List, Group] -->
+					<widgetType>Text</widgetType>
+					<javaType>java.lang.String</javaType>
+					<mandatory>true</mandatory>
+					<defaultValue>true</defaultValue>
+					<description>IS this an urgent message?</description>
+				</widget>							
+			</widgets>
+		</page>
+	</pages>
+
+	<!-- the 'outputs' configuration tag is optional and responsible for defining -->
+	<!-- connector outputs -->
+	<outputs>
+		<output>
+			<id>result</id>
+			<javaType>java.lang.String</javaType>
+		</output>
+	</outputs>
+
+</ConnectorDefinition>
